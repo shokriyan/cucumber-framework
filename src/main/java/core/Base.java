@@ -67,10 +67,12 @@ public class Base {
 	public void selectBrowser() {
 		switch (getBrowser()) {
 		case "chrome":
-			WebDriverManager.chromedriver().setup();
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--headless");
-			driver = new ChromeDriver(options);
+			WebDriverManager.chromedriver().linux().setup();
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.addArguments("--no-sandbox");
+			chromeOptions.addArguments("--headless");
+			chromeOptions.addArguments("--disable-gpu");
+			driver = new ChromeDriver(chromeOptions);
 			break;
 		case "ff":
 			WebDriverManager.firefoxdriver().setup();
