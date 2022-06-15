@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
@@ -67,7 +68,9 @@ public class Base {
 		switch (getBrowser()) {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless");
+			driver = new ChromeDriver(options);
 			break;
 		case "ff":
 			WebDriverManager.firefoxdriver().setup();
