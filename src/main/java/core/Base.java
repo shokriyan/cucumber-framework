@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -67,12 +68,10 @@ public class Base {
 	public void selectBrowser() {
 		switch (getBrowser()) {
 		case "chrome":
-			WebDriverManager.chromedriver().linux().setup();
-			ChromeOptions chromeOptions = new ChromeOptions();
-			chromeOptions.addArguments("--no-sandbox");
-			chromeOptions.addArguments("--headless");
-			chromeOptions.addArguments("--disable-gpu");
-			driver = new ChromeDriver(chromeOptions);
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions option = new ChromeOptions();
+			option.addArguments("--headless");
+			driver = new ChromeDriver(option);
 			break;
 		case "ff":
 			WebDriverManager.firefoxdriver().setup();
@@ -88,7 +87,9 @@ public class Base {
 			break;
 		default:
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless");
+			driver = new ChromeDriver(options);
 		}
 
 		driver.manage().window().maximize();
